@@ -120,6 +120,22 @@ pub async fn handle(greeter: Arc<RwLock<Greeter>>, input: KeyEvent, ipc: Ipc) ->
       greeter.mode = Mode::Power;
     }
 
+    KeyEvent { code: KeyCode::F(i), .. } if i == greeter.kb_session1 => {
+      // Find and select the Hyprland session
+      if let Some(sess_index) = greeter.sessions.options.iter().position(|s| s.name == "Hyprland") {
+        greeter.sessions.selected = sess_index;
+        greeter.session_source = SessionSource::Session(greeter.sessions.selected);
+      }
+    }
+
+    KeyEvent { code: KeyCode::F(i), .. } if i == greeter.kb_session2 => {
+      // Find and select the Awesome session
+      if let Some(sess_index) = greeter.sessions.options.iter().position(|s| s.name == "awesome") {
+        greeter.sessions.selected = sess_index;
+        greeter.session_source = SessionSource::Session(greeter.sessions.selected);
+      }
+    }
+
     // Handle moving up in menus.
     KeyEvent { code: KeyCode::Up, .. } => {
       if let Mode::Users = greeter.mode {

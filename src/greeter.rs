@@ -179,6 +179,10 @@ pub struct Greeter {
   pub kb_sessions: u8,
   #[default(12)]
   pub kb_power: u8,
+  #[default(8)]
+  pub kb_session1: u8,
+  #[default(9)]
+  pub kb_session2: u8,
 
   // The software is waiting for a response from `greetd`.
   pub working: bool,
